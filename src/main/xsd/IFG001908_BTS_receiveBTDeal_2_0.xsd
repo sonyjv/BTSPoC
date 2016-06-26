@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:receiveBTDeal_2_0="http://services.cs.csg.com/IFG001908_BTS/receiveBTDeal_2_0"
+    xmlns:v2="http://schemas.cs.csg.com/ifg001908_bts/v2" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.cs.csg.com/IFG001908_BTS/receiveBTDeal_2_0">
+  <xs:annotation>
+    <xs:documentation>
+$Id$
+$Revision$
+$Date$
+$Name$
+@Filename IFG001908_BTS_receiveBTDeal_2_0.xsd
+@Generator IFMS 5.0
+@GeneratedAt 2016-04-13 06:54:21 UTC
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://schemas.cs.csg.com/ifg001908_bts/v2" schemaLocation="DT_IFG001908_BTS_2.xsd"/>
+  <xs:element name="Message" type="receiveBTDeal_2_0:message"/>
+  <xs:complexType name="message">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Deal" type="v2:Deal"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

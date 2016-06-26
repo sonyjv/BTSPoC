@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:il_1="http://schemas.cs.csg.com/pb/bas/gedd/il/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.cs.csg.com/pb/bas/gedd/il/v1">
+  <xs:annotation>
+    <xs:documentation>
+$Id$
+$Revision$
+$Date$
+$Name$
+@Filename PB_BAS_GEDD_IL_1.xsd
+@Generator IFMS 5.0
+@GeneratedAt 2016-04-13 06:54:21 UTC
+</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="LanguageCdCS">
+    <xs:annotation>
+      <xs:documentation>
+A numerical code to identify the language according to the CS codetable. Currently, only 0 to 99 are legal. If only two digits are used a leading zero has to be inserted. &#xD;
+&#xD;
+Examples: &#xD;
+'001' (German) &#xD;
+'002' (Italian) &#xD;
+'003' (French) &#xD;
+'004' (English)
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CountryCdISO">
+    <xs:annotation>
+      <xs:documentation>
+Two-letter country code, uppercase, according to the ISO 3166-1 alpha-2 standard, representing countries and dependent territories. &#xD;
+&#xD;
+Examples: &#xD;
+CH - Switzerland &#xD;
+CN - China &#xD;
+DE - Germany &#xD;
+&#xD;
+See also: &#xD;
+http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LanguageCdISO">
+    <xs:annotation>
+      <xs:documentation>
+Two-character language code according to the ISO 639-1 standard. &#xD;
+&#xD;
+Examples: &#xD;
+'de' (German) &#xD;
+'fr' (French) &#xD;
+'it' (Italian) &#xD;
+'en' (English) &#xD;
+&#xD;
+See also: &#xD;
+http://www.loc.gov/standards/iso639-2/php/code_list.php &#xD;
+http://en.wikipedia.org/wiki/ISO_639
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CurrencyCdCS">
+    <xs:annotation>
+      <xs:documentation>
+Credit Suisse specific currency code, 4-digit numeric, right-aligned with leading zeros. &#xD;
+&#xD;
+Examples: &#xD;
+0002 - Euro &#xD;
+0010 - Swiss francs &#xD;
+0335 - Yen &#xD;
+&#xD;
+See also: &#xD;
+http://csintra.net/pb_isp_advisory_orderfulfillment/doc/equities/countries_codes.pdf
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CountryCdCS">
+    <xs:annotation>
+      <xs:documentation>
+Credit Suisse specific country code. &#xD;
+&#xD;
+Examples: &#xD;
+044 - Germany &#xD;
+210 - Switzerland &#xD;
+290 - China &#xD;
+&#xD;
+See also: &#xD;
+http://csintra.net/pb_isp_advisory_orderfulfillment/doc/equities/countries_codes.pdf
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LangSelWithAll">
+    <xs:annotation>
+      <xs:documentation>
+4-values selection to indicate the wished language
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BUDEF"/>
+      <xs:enumeration value="CSCD"/>
+      <xs:enumeration value="ISOCD"/>
+      <xs:enumeration value="ALL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CurrencyCdISO">
+    <xs:annotation>
+      <xs:documentation>
+3 letter currency code, uppercase according to the ISO 4217 standard. &#xD;
+The first two letters (except EURO) of the code are the two letters of ISO 3166-1 alpha-2 country codes (which are also used as the basis for national top-level domains on the Internet) and the third is usually the initial of the currency itself. So Japan's currency code becomes JPY?JP for Japan and Y for yen. &#xD;
+&#xD;
+3-stelliger Währungscode in Grossbuchstaben, gemäss dem ISO 4217 Standard. &#xD;
+Der Währungscode wird gebildet aus dem 2-stelligen Ländercode (Ausnahme EURO) gemäss ISO 3166-1 alpha-2 und für die dritte Stelle normalerweise aus dem Anfangsbuchstaben der Währung. Z.B. Japans Währungscode lautet JPY - &quot;JP&quot; für Japan und &quot;Y&quot; für Yen. &#xD;
+&#xD;
+Examples: &#xD;
+'CHF' - Swiss francs &#xD;
+'EUR' - Euro &#xD;
+'JPY' - Yen &#xD;
+&#xD;
+See also: &#xD;
+http://www.iso.org/iso/support/currency_codes_list-1.htm or &#xD;
+http://www.iso.org/iso/support/faqs/faqs_widely_used_standards/widely_used_standards_other/currency_codes/currency_codes_list-1.htm
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

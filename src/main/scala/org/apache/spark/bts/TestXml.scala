@@ -1,0 +1,70 @@
+package org.apache.spark.bts
+
+import org.json4s.Xml.toJson
+import org.json4s.Xml.toXml
+
+object TestXml {
+  def main(args: scala.Array[String]) {
+    
+    val xml = 
+<receiveBTDeal_2_0:Message xmlns:il_1="http://schemas.cs.csg.com/pb/bas/gedd/il/v1"
+ xmlns:receiveBTDeal_2_0="http://services.cs.csg.com/IFG001908_BTS/receiveBTDeal_2_0"
+ xmlns="http://schemas.cs.csg.com/ifg001908_bts/v2"
+ xmlns:ti_1="http://schemas.cs.csg.com/pb/bas/gedd/ti/v1"
+ xmlns:de_1="http://schemas.cs.csg.com/pb/bas/gedd/de/v1"
+ xmlns:v1="http://schemas.cs.csg.com/ifg001908_bts/v1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://services.cs.csg.com/IFG001908_BTS/receiveBTDeal_2_0 file:../../schemas/Deal/IFG001908_BTS_receiveBTDeal_2_0.xsd">    
+    <receiveBTDeal_2_0:Deal>
+        <Header>
+            <v1:BulkId>MIG01</v1:BulkId><!-- used only for migrations -->
+            <v1:ProcModeCd>1</v1:ProcModeCd><!-- Create -->
+        </Header>
+        <Id>TEST22150808000010</Id>
+        <IdScCd>2</IdScCd><!-- P90SOID -->
+        <CtgyCd>1</CtgyCd><!-- SO -->
+        <BtsTpCd>2</BtsTpCd><!-- assetTransferIn -->
+        <ExtTp>511</ExtTp>
+        <ExtTpScCd>1</ExtTpScCd><!-- CSGAS -->
+        <ExtTpDesc>Deposit</ExtTpDesc>
+        <IsBusTrx>false</IsBusTrx>
+        <BusTrxTpCd>4</BusTrxTpCd><!-- internalInstrTransferWoPayment -->
+        <BtsStsCd>2</BtsStsCd><!-- completed -->
+        <ExtSts>Infra Processing Code</ExtSts>
+        <ExtStsScCd>8</ExtStsScCd><!-- WSISTS -->
+        <Desc>Text Deal Details</Desc>
+        <OrderDate>2016-01-25T09:32:01+01:00</OrderDate>
+        <CreatedAt>2016-01-25T09:32:01+01:00</CreatedAt>
+        <Context>
+            <BusObjCtgyCd>1</BusObjCtgyCd><!-- SKA -->
+            <BusObjId>9999992916600006</BusObjId>
+            <BusObjIdScCd>5</BusObjIdScCd> <!-- SKANO -->
+            <BankUnitId>0012</BankUnitId>
+            <BankUnitIdScCd>11</BankUnitIdScCd><!-- BUID -->
+            <BankRelId>999999291660</BankRelId>
+            <BankRelIdScCd>4</BankRelIdScCd><!-- CIFNO -->
+        </Context>
+        <DealLink><!-- link out / in -->
+            <Id>TEST20150808000010</Id>
+            <IdScCd>2</IdScCd><!-- P90SOID -->
+            <LinkTp>2</LinkTp><!-- outInTransfer -->
+            <RoleScCd>1</RoleScCd><!-- FROM -->
+        </DealLink>
+        <DealLink><!-- link to STO -->      
+            <Id>STO20150808777888999</Id>
+            <IdScCd>13</IdScCd><!-- STO -->
+            <LinkTp>1</LinkTp><!-- decomposition -->
+            <RoleScCd>1</RoleScCd><!-- FROM -->
+        </DealLink>              
+        <IsCBO>true</IsCBO>
+        <ReasonCd>1</ReasonCd><!-- donation -->
+    </receiveBTDeal_2_0:Deal>
+</receiveBTDeal_2_0:Message>
+      
+     val json = toJson(xml)
+     
+     System.out.println(json.toString()) 
+     System.out.println(toXml(json).toString()) 
+     
+  }
+}

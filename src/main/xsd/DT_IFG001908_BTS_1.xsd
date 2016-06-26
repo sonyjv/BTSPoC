@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ifg001908_bts_1="http://schemas.cs.csg.com/ifg001908_bts/v1" xmlns:v1="http://schemas.cs.csg.com/pb/bas/gedd/de/v1"
+    xmlns:v1_1="http://schemas.cs.csg.com/pb/bas/gedd/ti/v1" xmlns:v2="http://schemas.cs.csg.com/ifg001908_bts/v2"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.cs.csg.com/ifg001908_bts/v1">
+  <xs:annotation>
+    <xs:documentation>
+$Id$
+$Revision$
+$Date$
+$Name$
+@Filename DT_IFG001908_BTS_1.xsd
+@Generator IFMS 5.0
+@GeneratedAt 2016-04-13 06:54:21 UTC
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://schemas.cs.csg.com/pb/bas/gedd/de/v1" schemaLocation="PB_BAS_GEDD_DE_1.xsd"/>
+  <xs:import namespace="http://schemas.cs.csg.com/ifg001908_bts/v2" schemaLocation="DT_IFG001908_BTS_2.xsd"/>
+  <xs:import namespace="http://schemas.cs.csg.com/pb/bas/gedd/ti/v1" schemaLocation="PB_BAS_GEDD_TI_1.xsd"/>
+  <xs:simpleType name="AttributeRole">
+    <xs:annotation>
+      <xs:documentation>
+Attribute Role
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="AttributeKey">
+    <xs:annotation>
+      <xs:documentation>
+Attribute Key&#xD;
+Allowed Values:&#xD;
+1 = generFromAh [reference to the action header which was used to generate the deal instance (securities order)]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="AttributeValueCategory">
+    <xs:annotation>
+      <xs:documentation>
+Attribute Value Category&#xD;
+Allowed Values:&#xD;
+1 = FreeText [only &quot;txtVal&quot; to be filled]&#xD;
+2 = BusObj [&quot;busObjId&quot; and &quot;busObjIdScCd&quot; to be filled]&#xD;
+3 = CcyAmount [&quot;amtVal&quot; to  be filled]&#xD;
+4 = DateTime [&quot;date&quot; to be filled]&#xD;
+5 = Decimal Value [&quot;decVal&quot; to be filled]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="DetailSubEntityType">
+    <xs:annotation>
+      <xs:documentation>
+Detail Sub Entity Type
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:simpleType name="DetailSubEntityIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+Detail Sub Entity Id Schema
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:complexType name="Transaction">
+    <xs:annotation>
+      <xs:documentation>
+*Transaction* is a core extension of deal which when processed issue booking requests directly to XBS or DBH. This object contains the attributes on the level of the deal and is parent for the sub-entities with additional detail data.&#xD;
+&#xD;
+The &quot;id&quot; and &quot;idScCD&quot; together form the business unique key on the Transaction.&#xD;
+All attributes with String[256] are values from external systems and do not have fixed lengths for their values. For e.g. the &quot;id&quot; value comes from different systems and each of them have their own id definitions.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:TransactionIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="TpCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="StsCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReversalOf" type="ifg001908_bts_1:TransactionReversal"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="BookingDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReqDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkToDeal" type="ifg001908_bts_1:DealReference"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Detail" type="ifg001908_bts_1:TransactionDetail"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TransactionIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Id Schema&#xD;
+Allowed Values:&#xD;
+1 = P90SOSID [Securities Order Settlement number from WSI_ABW (P90)]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="TransactionReversal">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Reversal
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:TransactionIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ReversalTpCd" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DealReference">
+    <xs:annotation>
+      <xs:documentation>
+Reference to Deal
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:DealIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="CtgyCd" type="ifg001908_bts_1:DealCategory"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DealIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+BTS scheme codes for value ranges/data types used as references (i.e. codes or identifiers) from other (non BTS) bank IT applications. BTS schemes are used to made external values globally unique in BTS (e.g. if in one field we need to store identifier from several sources and those values would happen to be the same).&#xD;
+See also business object &quot;BTS_Scheme&quot; for other examples.&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = P90SOID[Securities Order number from WSI_ABW (P90)]&#xD;
+2 = VDPSCEID [VDPS Financial Event Id]&#xD;
+3 = HOSTAHID [HOST Action Header Id]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="DealCategory">
+    <xs:annotation>
+      <xs:documentation>
+Deal Category&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = SO
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="TransactionDetail">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Detail
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="TrxAttr" type="ifg001908_bts_1:DetailAttribute"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SubEntity" type="ifg001908_bts_1:DetailSubEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DetailAttribute">
+    <xs:annotation>
+      <xs:documentation>
+Key value attributes that provide the additional details
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Role" type="ifg001908_bts_1:AttributeRole"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="Attr" type="ifg001908_bts_1:Attribute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Attribute">
+    <xs:annotation>
+      <xs:documentation>
+Attribute with Key Value Pair
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Key" type="ifg001908_bts_1:AttributeKey"/>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="Value" type="ifg001908_bts_1:AttributeValue"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeValue">
+    <xs:annotation>
+      <xs:documentation>
+Attribute Value
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="SeqNo" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="Ctgy" type="ifg001908_bts_1:AttributeValueCategory"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="BusObjId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="BusObjIdScCd" type="ifg001908_bts_1:BusinessObjectIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="TxtVal">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="DecVal">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="AmtVal" type="v1:Amount"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Date">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="BusinessObjectIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+discriminator of the generalization, for example: BR (Bank Relationship), NAMA (Non-Account Managed Assets), SAC, SKA, FI, FI issuer, CPTY (Counterparty).&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = SKANO [Safekeeping Account Number]&#xD;
+2 = HOSTAHID [HOST Action Header Id]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="DetailSubEntity">
+    <xs:annotation>
+      <xs:documentation>
+Detail Sub entity
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Name" type="ifg001908_bts_1:DetailSubEntityType"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="SubEntId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="SubEntIdScCd" type="ifg001908_bts_1:DetailSubEntityIdSchema"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Attr" type="ifg001908_bts_1:Attribute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Exception">
+    <xs:annotation>
+      <xs:documentation>
+Exception information
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Cd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="Desc">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="500"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TrxReversal">
+    <xs:annotation>
+      <xs:documentation>
+Reversal of a Deal
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Cd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ReasonCd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReasonText">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="2000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefIdScCd" type="v2:TransactionIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="UnstructuredRefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Header">
+    <xs:annotation>
+      <xs:documentation>
+Header Information : contains attributes used to fulfill technical requirements during the processing of the messages
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="BulkId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ProcModeCd" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionLink">
+    <xs:annotation>
+      <xs:documentation>
+*Transaction Link* represents classified processing relationship between Transactions.  For the links with specified semantics distinct BTS link types must be defined.
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="v2:TransactionIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkTpCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTp">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTpScCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="RoleScCd" type="ifg001908_bts_1:LinkRoleSchema"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="LinkRoleSchema">
+    <xs:annotation>
+      <xs:documentation>
+BTS Code for detail role of value with respect to the deal.&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = From&#xD;
+2 = To
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="DealReversal">
+    <xs:annotation>
+      <xs:documentation>
+Reversal of a Deal
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Cd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReasonCd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReasonText">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="2000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefIdScCd" type="v2:DealIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="UnstructuredRefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Attention">
+    <xs:annotation>
+      <xs:documentation>
+Attention Information
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Cd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="Desc">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Deal">
+    <xs:annotation>
+      <xs:documentation>
+*Deal* represents the bank internal image of the external request/trigger/event or its enrichment with processing details or any sub-task/sub-process generated or created on behalves of the original deal. Deal is hence any separately identifiable processing decomposition unit down to the lowest level request which is executed as one logical unit of work - e.g. booking request to XBS (with requests for particular money bookings of GFM) or DBH (with requests for particular instrument bookings/contexts of Securities Order).&#xD;
+&#xD;
+The &quot;id&quot; and &quot;idScCD&quot; together form the business unique key on the Deal.&#xD;
+All attributes with String[256] are values from external systems and do not have fixed lengths for their values. For e.g. the &quot;id&quot; value comes from different systems and each of them have their own id definitions.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:DealIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="CtgyCd" type="ifg001908_bts_1:DealCategory"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ExtTp">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ExtTpScCd" type="ifg001908_bts_1:ExternalDealType"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="IsBusTrx" type="xs:boolean"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ExtSts">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ExtStsScCd" type="ifg001908_bts_1:ExternalDealStatus"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Desc">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="LegalDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="Context" type="ifg001908_bts_1:DealContext"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Link" type="ifg001908_bts_1:DealLink"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Detail" type="ifg001908_bts_1:DealDetail"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ExternalDealType">
+    <xs:annotation>
+      <xs:documentation>
+External Deal Type&#xD;
+Allowed Values:&#xD;
+1 = CSGAS
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:simpleType name="ExternalDealStatus">
+    <xs:annotation>
+      <xs:documentation>
+External Deal Status&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = WSISTS [WS Infra status log code]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="DealContext">
+    <xs:annotation>
+      <xs:documentation>
+Generalization of business objects which can be the (primary) deal scope or detail value for a atrtibute/property/key of a deal.&#xD;
+For example: bank legal entity, bank business unit ... bank relationship, banking agreement, financial instrument ...&#xD;
+This object contains for the referenced business object also the mandatory or known parent objects (referenced via internal unique Id) => enables basic searching and aggregation of deals in BTS.&#xD;
+For example:&#xD;
+1. If the referenced object is a FI event then FI and FI issuer could be filled as parent reference too.&#xD;
+2. If the referenced object is SKA then also following parent references could be filled:&#xD;
+bank relationship, bank business unit.&#xD;
+3. If the referenced object is securities position then also following parentv references could be filled:&#xD;
+FI, FI issuer, SKA, bank relationship, bank business unit.&#xD;
+Notes:&#xD;
+- Impementation R.0.2 - discriminator of scope object.&#xD;
+- Counter party of a deal has no derived parent references.&#xD;
+- Attributes of counter party shall be either implemented directly in deal or in a separate entity (with key: deal number, sequence number within deal) but then used only as reference value in deal key value detail.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="BusObjCtgyCd" type="ifg001908_bts_1:BusinessObjectCategory"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="BusObjId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="BusObjIdScCd" type="ifg001908_bts_1:BusinessObjectIdSchema"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="BusinessObjectCategory">
+    <xs:annotation>
+      <xs:documentation>
+Business Object Category&#xD;
+&#xD;
+Allowed Values:&#xD;
+1 = SKA [Safekeeping Account]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="DealLink">
+    <xs:annotation>
+      <xs:documentation>
+*Deal Link* represents classified processing relationship between deals.  Between two particular deals at most one link of specific type is allowed to exist. For the links with specified semantics distinct BTS link types must be defined.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:DealIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkTp" type="ifg001908_bts_1:DealLinkType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTp">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTpScCd" type="ifg001908_bts_1:DealExternalLinkType"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="RoleScCd" type="ifg001908_bts_1:LinkRoleSchema"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DealLinkType">
+    <xs:annotation>
+      <xs:documentation>
+Deal Link Type&#xD;
+Allowed Values:&#xD;
+1 = Decomposition
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="DealExternalLinkType">
+    <xs:annotation>
+      <xs:documentation>
+Deal External Link Type&#xD;
+Allowed Values:&#xD;
+1 = WSISODT  [ Dependency type between security orders from WSInfra Family table]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="DealDetail">
+    <xs:annotation>
+      <xs:documentation>
+*Deal Key Value Detail* is a generic ad hoc extension of deal with a value with specified semantics in a &quot;key-value&quot; manner (semantics is specified by the attribute name; value can be free text, currency amount or reference to a business object instance).&#xD;
+Particular implemented structure enables:&#xD;
+1. define values of attributes linked to particular deal instance (&quot;extended attributes of deal&quot;) or&#xD;
+2. define equivalent identifiers (synonyms) of chosen deal business unique identifier or&#xD;
+3. one or more references in deal to other business objects (&quot;foreign keys&quot;) or&#xD;
+4. define values of attributes of sub-entities associated with/dependent on the deal (e.g. if a deal requires as detail to capture the &quot;merge price&quot; per FI involved in a merger business transaction then it can be done by defining the sub-entity name).&#xD;
+5. store a ordered sequence of values per extension attribute (semantics of the ordering must be defined elsewhere).&#xD;
+Note: If many deals need certain/similar detail data structure with several attributes it should be considered to design and implemented specialization of DealDetailData object to achieve better performance and/or more efficient data validation.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DealAttr" type="ifg001908_bts_1:DetailAttribute"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SubEntity" type="ifg001908_bts_1:DetailSubEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DealType">
+    <xs:annotation>
+      <xs:documentation>
+Deal Type
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:simpleType name="DealStatus">
+    <xs:annotation>
+      <xs:documentation>
+Deal Status
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:simpleType name="AttributeValueBusObjIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+Attribute Value Business Object Id Schema
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:complexType name="TransactionElement">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Element:&#xD;
+Represents the whole booking record - however only the client side money movement on SAC or client side particular FI movement or reference on SKA is stored (i.e. not the balancing side data done by the accounting booking system).&#xD;
+During the booking:&#xD;
+- the input transaction elements can be enriched with additional data (e.g. particular security position to which the movement was applied)&#xD;
+-also additional transaction elements (movements) can be added which make the booking image complete (e.g. FX and possibly missing double accounting / clearing instances).&#xD;
+&#xD;
+The &quot;id&quot; and &quot;idScCD&quot; together form the business unique key on the Transaction Element.&#xD;
+All attributes with String[256] are values from external systems and do not have fixed lengths for their values. For e.g. the &quot;id&quot; value comes from different systems and each of them have their own id definitions.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:TransactionElementIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="TpCd" type="ifg001908_bts_1:TransactionElementType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReversalOf" type="ifg001908_bts_1:TransactionElementReversal"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Reference" type="ifg001908_bts_1:TransationElementReferencedObj"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="BookingSideCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="BookingTpCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Qty">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="BookingAmt" type="v1:Amount"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="TrxPrice" type="v1:Amount"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExecTime">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ValueDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="MarketPrice" type="v1:Amount"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkToTransaction" type="ifg001908_bts_1:TransactionReference"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Detail" type="ifg001908_bts_1:TransactionElementDetail"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TransactionElementIdSchema">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Element Id Schema&#xD;
+Allowed Values:&#xD;
+1 = P90SOSIVID [Securities order settlement FI volume number from WSI_ABW (P90)]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionElementType">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Element Type&#xD;
+Allowed Values:&#xD;
+1 = parentInstrumentMovement [instrument movement with the parent role in transaction (deal) - e.g. used in some deals for corporate actions]&#xD;
+2 = targetInstrumentMovement [instrument movement with the target role in transaction (deal) - e.g. used in some deals for corporate actions]&#xD;
+3 = moneyMovement [Money Transaction element]&#xD;
+4 = instrumentMovement [instrument movement without specific role in transaction - e.g. used in sell / buy FI deals [Titelbewegung]]&#xD;
+5 = underlyingFiRef [Transaction element identifies the underlying financial instrument - the one defining the FI which (or its balance) is context/source of this transaction]
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:short"/>
+  </xs:simpleType>
+  <xs:complexType name="TransactionElementReversal">
+    <xs:annotation>
+      <xs:documentation>
+Details of the Transaction Element being reversed
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:TransactionElementIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ReversalTpCd" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransationElementReferencedObj">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Element Referenced Business object
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="SacNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="SacNoScCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="FinInstrId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="FinInstrIdScCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="SecPosId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="SecPosIdScCd" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionReference">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Reference
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="ifg001908_bts_1:TransactionIdSchema"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionElementDetail">
+    <xs:annotation>
+      <xs:documentation>
+Transaction Element Detail
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="TrxElemAttr" type="ifg001908_bts_1:DetailAttribute"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SubEntity" type="ifg001908_bts_1:DetailSubEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionElementLink">
+    <xs:annotation>
+      <xs:documentation>
+*Transaction Element Link* represents classified processing relationship between Transaction Elements.  For the links with specified semantics distinct BTS link types must be defined.
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="IdScCd" type="v2:TransactionElementIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkTpCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTp">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ExtLinkTpScCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="RoleScCd" type="ifg001908_bts_1:LinkRoleSchema"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TrxElReversal">
+    <xs:annotation>
+      <xs:documentation>
+Reversal of a Deal
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="Cd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ReasonCd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReasonText">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="2000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="RefIdScCd" type="v2:TransactionElementIdSchema"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="UnstructuredRefId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetIntTransferLinkageForTaxReq">
+    <xs:annotation>
+      <xs:documentation>
+Request strcuture for the getIntTransferLinkageForTax service
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="AppId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="CorrelationId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ReqTS" type="v1_1:LocalTime"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="CifNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="12"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="StartDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="EndDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetIntTransferLinkageForTaxRes">
+    <xs:annotation>
+      <xs:documentation>
+Response structure for the getIntTransferLinkageForTax service
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="CorrelationId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="ResTS" type="v1_1:LocalTime"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="CifNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="12"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Transfer" type="ifg001908_bts_1:InternalTransferForTax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InternalTransferForTax">
+    <xs:annotation>
+      <xs:documentation>
+Internal Transfer details for Tax
+@State QC2passed
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="SkaNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="TrxId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="TypeCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkedCifNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="12"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkedSkaNo">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="LinkedTrxId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="IsCBO" type="xs:boolean"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="ReasonCd" type="xs:short"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="SettlementDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

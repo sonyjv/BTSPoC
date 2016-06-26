@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<dc:Document xmlns:dc="http://test.org/dc" xmlns:meta="http://test.org/meta">
+  <dc:Description/>
+  <dc:Header>
+    <meta:Identity type="docType">
+      <meta:Value>DOC1</meta:Value>
+    </meta:Identity>
+    <meta:Identity type="docId">
+      <meta:Value>DOC_ID_1</meta:Value>
+    </meta:Identity>
+    <meta:Identity type="docTarget">
+      <meta:Value>JO_1</meta:Value>
+    </meta:Identity>
+  </dc:Header>
+  <dc:Content type="APPLICATION">
+    <dc:Person>
+      <dc:Identity>12345678</dc:Identity>
+      <dc:Name>Name1</dc:Name>
+      <dc:Surname>Surname1</dc:Surname>
+      <dc:Citizneship>PL</dc:Citizneship>
+      <dc:MaritalStatus>MARRIED</dc:MaritalStatus>
+    </dc:Person>
+    <dc:Application>
+      <dc:Statement>
+        <dc:Version1>false</dc:Version1>
+        <dc:Version2>true</dc:Version2>
+      </dc:Statement>
+      <dc:Version1Data>
+        <dc:attr1>ATTR1</dc:attr1>
+        <dc:attr2>ATTR2</dc:attr2>
+      </dc:Version1Data>
+      <dc:Version2Data>
+        <dc:attr1>ATTR1</dc:attr1>
+        <dc:attr2>ATTR2</dc:attr2>
+        <dc:attr3>ATTR3</dc:attr3>
+      </dc:Version2Data>
+    </dc:Application>
+  </dc:Content>
+</dc:Document>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:de_1="http://schemas.cs.csg.com/pb/bas/gedd/de/v1" xmlns:v1="http://schemas.cs.csg.com/pb/bas/gedd/il/v1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.cs.csg.com/pb/bas/gedd/de/v1">
+  <xs:annotation>
+    <xs:documentation>
+$Id$
+$Revision$
+$Date$
+$Name$
+@Filename PB_BAS_GEDD_DE_1.xsd
+@Generator IFMS 5.0
+@GeneratedAt 2016-04-13 06:54:21 UTC
+</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://schemas.cs.csg.com/pb/bas/gedd/il/v1" schemaLocation="PB_BAS_GEDD_IL_1.xsd"/>
+  <xs:simpleType name="Percent">
+    <xs:annotation>
+      <xs:documentation>
+Percent ist eine relative, in Prozent (%, d.h. pro 100) ausgedrückte, auf einen anderen Wert bezugnehmende Berechnungsgrösse mit max. 7 Ziffern und 8 Dezimalstellen &#xD;
+&#xD;
+z.B. Zinssatz, Mehrwertsteuer-Ansatz, Kommission, Stempelgebühr, Marge usw.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="15"/>
+      <xs:fractionDigits value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CurrencyCd">
+    <xs:annotation>
+      <xs:documentation>
+CS and/or ISO currency specification &#xD;
+Usage in input data structures: One valid currency code (CS or ISO) must be defined; in case of defining both codes (CS and ISO), they must be the same in the meaning of representing the identical currency.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="CurrencyCdCs" type="v1:CurrencyCdCS"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="CurrencyCdIso" type="v1:CurrencyCdISO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Amounts">
+    <xs:annotation>
+      <xs:documentation>
+Amount with ISO currency specification &#xD;
+Usage in input data structures: Valid currency code (ISO) can be defined; in case of defining amount
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="CurencyISO" type="v1:CurrencyCdISO"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="Amount">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AmountRange">
+    <xs:annotation>
+      <xs:documentation>
+Defines range of amount in decimal format.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="AmountFrom">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="AmountTo">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="Currency" type="v1:CurrencyCdISO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CurrencyISOAmount">
+    <xs:annotation>
+      <xs:documentation>
+Amount with ISO currency specification &#xD;
+Usage in input/output data structures: One valid currency ISO code must be defined;&#xD;
+&#xD;
+Usage in output structures: The ISO currency code is always defined;
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="CurrencyISO" type="v1:CurrencyCdISO"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="Amount">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Amount">
+    <xs:annotation>
+      <xs:documentation>
+Amount with CS and/or ISO currency specification &#xD;
+Usage in input data structures: One valid currency code (CS or ISO) must be defined; in case of defining both codes (CS and ISO), they must be the same in the meaning of representing the identical currency. &#xD;
+&#xD;
+Usage in output structures: The CS currency code is always defined; if an identical representation in form of an ISO currency code is available it must be defined as well. &#xD;
+&#xD;
+Betrag mit CS- und/oder ISO-Waehrungscode &#xD;
+Verwendung bei Eingabestrukturen: Mindestens gültigen CS- oder ISO-Code enthalten; sind beide enthalten müssen sie konsistent sein, d.h. die genau gleiche Waehrung identifizieren. &#xD;
+&#xD;
+Verwendung in Ausgabestrukturen: Der CS-Code wird immer geliefert, der ISO-Code muss zusätzlich enthalten sein, wenn es ihn für die Währung gibt, d.h. bei den echten, gaengigen Zahlungsmitteln.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="CurrencyCS" type="v1:CurrencyCdCS"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="CurencyISO" type="v1:CurrencyCdISO"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="Amount">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="31"/>
+            <xs:fractionDigits value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

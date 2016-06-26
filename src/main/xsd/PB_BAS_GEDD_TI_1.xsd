@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ti_1="http://schemas.cs.csg.com/pb/bas/gedd/ti/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.cs.csg.com/pb/bas/gedd/ti/v1">
+  <xs:annotation>
+    <xs:documentation>
+$Id$
+$Revision$
+$Date$
+$Name$
+@Filename PB_BAS_GEDD_TI_1.xsd
+@Generator IFMS 5.0
+@GeneratedAt 2016-04-13 06:54:21 UTC
+</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="DateFragmentary">
+    <xs:annotation>
+      <xs:documentation>
+Ganzes oder nur teilweises Datum, Format: [YYYYMMDD] &#xD;
+a) Datum möglicherweise nur unvollständig bekannt &#xD;
+b) Periodische Termine, täglich bis jährlich oder einmalig Tag, Monat und/oder Jahr können auch Zeroes enthalten
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Date">
+    <xs:annotation>
+      <xs:documentation>
+Date, based on the Gregorian calendar, represented according the ISO 8601 standard in the basic format [YYYYMMDD]; dates prior 15 October 1582 (&quot;15821015&quot;) are not valid, because of the introduction of the Gregorian Calendar by this date. &#xD;
+Special semantic interpretation for following specific dates: &#xD;
+&quot;99991231&quot; is interpreted as undefined in future &#xD;
+&#xD;
+See also: &#xD;
+http://www.iso.org/iso/support/faqs/faqs_widely_used_standards/widely_used_standards_other/date_and_time_format.htm &#xD;
+http://en.wikipedia.org/wiki/ISO_8601#Calendar_dates
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Period">
+    <xs:annotation>
+      <xs:documentation>
+Validity period for an object. &#xD;
+&#xD;
+Zeitraum der Gueltigkeit eines Objekts.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="ValidFrom" type="ti_1:Date"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ValidTo" type="ti_1:Date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Time">
+    <xs:annotation>
+      <xs:documentation>
+time, format HHMMSS
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UTC">
+    <xs:annotation>
+      <xs:documentation>
+Coordinated Universal Time is a time standard based on International Atomic Time (TAI) with leap seconds added at irregular intervals to compensate for the Earth's slowing rotation.&#xD;
+&#xD;
+See also:&#xD;
+http://en.wikipedia.org/wiki/Coordinated_Universal_Time
+@State Deprecated
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TimeZoneId">
+    <xs:annotation>
+      <xs:documentation>
+A TimeZoneId is the enduring, unique, alphanumeric but not case-sensitive identifier of a geographical area where time is uniformly used and autonomously regulated by law. &#xD;
+TimeZoneIds are assigned by IANA (Internet Assigned Numbers Authority), according to RFC 4647 and IETF's BCP 47 (Best Current Practice 47), maintained in CLDR (Unicode Common Locale Data Repository). &#xD;
+- Accepted characters are a..z, 0..9&#xD;
+- Min size of property value: 3 char&#xD;
+- Max size of property value: 8 char
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TimeOffset">
+    <xs:annotation>
+      <xs:documentation>
+A TimeOffset is a relative time difference applicable with respect to UTC and local time handling and daylight saving displacement, e.g. to specify the standard offset of a time zone to UTC, existing of sign, hours and minutes: +hh:mm or -hh:mm&#xD;
+Accepted characters: 0..9, + – : &#xD;
+Precision: 1 minute
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UtcZ">
+    <xs:annotation>
+      <xs:documentation>
+A UtcZ is a time specification explicitly corresponding to UTC (Universal Time Coordinated), existing of year (4 digits), month und day according to the gregorian calendar and hour, minute und second (inkl. fractional digits) and a mandatory ‘Z’ for Zero-Offset +00:00: &#xD;
+yyyy–MM–ddThh:mm:ss[.f(1–6)]Z&#xD;
+Accepted characters: 0..9, – : . T Z &#xD;
+MIn size of property value: 20 char&#xD;
+Max size of property value: 27 char&#xD;
+Precision: Second with 0–6 decimals
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="27"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Timestamp">
+    <xs:annotation>
+      <xs:documentation>
+Timestamp YYYY-MM-DD-HH.MM.SS.UUUUUU&#xD;
+Y=Year, M=Month, D= Day, H=hour, M=Minute,S=Second, U=MicroSecond Z.B. '2008-10-09-16.15.34.061846'
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="26"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TimestampDB2">
+    <xs:annotation>
+      <xs:documentation>
+- Limited use only in PL1 applications on Mainframe platform&#xD;
+- This DT is a technical need (generally the DT UtcZ should be &#xD;
+  used as Timestamp)&#xD;
+- Format YYYY-MM-DD-HH.MM.SS.UUUUUU Y=Year, M=Month, D= &#xD;
+  Day, H=hour, M=Minute,S=Second, U=MicroSecond Z.B. '2008-10-&#xD;
+  09-16.15.34.061846'
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="26"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PerfPeriodDates">
+    <xs:annotation>
+      <xs:documentation>
+Missing description
+@State DTcandidate
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:complexType name="PeriodDates">
+    <xs:annotation>
+      <xs:documentation>
+Defines period begin and period end date.
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="PeriodFromDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="PeriodToDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="\d{4}-\d\d-\d\d"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="LocalTime">
+    <xs:annotation>
+      <xs:documentation>
+A LocalTime is a comprehensive time specification, existing of year (4 digits), month und day according to the gregorian calendar and hour, minute und second (inkl. fractional digits), completed by a time zone designator (TZD) hh:mm or ‘Z’: &#xD;
+yyyy–MM–ddThh:mm:ss[.s(1–6)]TZD&#xD;
+Accepted characters: 0..9, T, Z, – : . +&#xD;
+Min size of property values: 20 char&#xD;
+Max size of property values: 32 char&#xD;
+Precision: Second with 0–6 decimals
+@State Active
+</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
